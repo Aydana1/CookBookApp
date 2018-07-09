@@ -45,7 +45,7 @@ const RootStack = createStackNavigator(
     Login: Login
   },
   {
-    initialRouteName: "ShowRecipe"
+    initialRouteName: "Register"
   }
 );
 

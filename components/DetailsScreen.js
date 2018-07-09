@@ -39,6 +39,8 @@ class DetailsScreen extends React.Component {
           <CardContent>
             <Title>{recipe.title}</Title>
             <Paragraph>{recipe.description}</Paragraph>
+            <Paragraph>{recipe.ingredients.join(",")}</Paragraph>
+            <Paragraph>{recipe.instructions.join("; ")}</Paragraph>
           </CardContent>
           <CardCover source={{ uri: IMAGE_URL }} />
         </Card>

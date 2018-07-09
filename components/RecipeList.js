@@ -15,6 +15,7 @@ import {
   DefaultTheme,
   Provider as PaperProvider
 } from "react-native-paper";
+import { ScrollView } from "../node_modules/react-native-gesture-handler";
 
 const GET_ALL_RECIPES = gql`
   query {
@@ -24,6 +25,7 @@ const GET_ALL_RECIPES = gql`
       description
       instructions
       imageUrl
+      ingredients
     }
   }
 `;
@@ -71,31 +73,33 @@ class RecipeList extends React.Component {
   render() {
     return (
       <PaperProvider>
-        <Query query={GET_ALL_RECIPES}>
-          {({ loading, data, error, refetch }) => {
-            if (this.props.navigation.getParam("refetch", false)) {
-              refetch();
-            }
-            return loading ? (
-              <ActivityIndicator />
-            ) : (
-              <FlatList
-                keyExtractor={item => item.id}
-                data={data ? data.allRecipes : []}
-                renderItem={this.renderItem}
-              />
-            );
-          }}
-        </Query>
+        <ScrollView>
+          <Query query={GET_ALL_RECIPES}>
+            {({ loading, data, error, refetch }) => {
+              if (this.props.navigation.getParam("refetch", false)) {
+                refetch();
+              }
+              return loading ? (
+                <ActivityIndicator />
+              ) : (
+                <FlatList
+                  keyExtractor={item => item.id}
+                  data={data ? data.allRecipes : []}
+                  renderItem={this.renderItem}
+                />
+              );
+            }}
+          </Query>
 
-        <Button
-          style={styles.button}
-          color="white"
-          compact
-          onPress={() => this.props.navigation.navigate("CreateRecipe")}
-        >
-          +
-        </Button>
+          <Button
+            style={styles.button}
+            color="white"
+            compact
+            onPress={() => this.props.navigation.navigate("CreateRecipe")}
+          >
+            +
+          </Button>
+        </ScrollView>
       </PaperProvider>
     );
   }

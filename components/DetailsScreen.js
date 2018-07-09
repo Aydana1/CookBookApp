@@ -2,7 +2,19 @@ import { ActivityIndicator, FlatList, Text, View, Image } from "react-native";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import React from "react";
-import { Provider as PaperProvider } from "react-native-paper";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardCover,
+  Title,
+  Paragraph,
+  TextInput,
+  TouchableRipple,
+  DefaultTheme,
+  Provider as PaperProvider
+} from "react-native-paper";
 
 const GET_RECIPE = gql`
   {
@@ -23,18 +35,13 @@ class DetailsScreen extends React.Component {
     const recipeID = this.props.navigation.state.params.recipeID;
     if (recipe.id === recipeID) {
       return (
-        <View style={{ backgroundColor: "#7FDBFF" }}>
-          <Text>{recipe.title}</Text>
-          <Text>{recipe.description}</Text>
-          <Text>{recipe.ingredients}</Text>
-          <Text>{recipe.instructions}</Text>
-          {IMAGE_URL && (
-            <Image
-              style={{ width: 200, height: 200 }}
-              source={{ uri: IMAGE_URL }}
-            />
-          )}
-        </View>
+        <Card>
+          <CardContent>
+            <Title>{recipe.title}</Title>
+            <Paragraph>{recipe.description}</Paragraph>
+          </CardContent>
+          <CardCover source={{ uri: IMAGE_URL }} />
+        </Card>
       );
     }
   };

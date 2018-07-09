@@ -1,14 +1,12 @@
-import {
-  Image,
-  Text,
-  TextInput,
-  View,
-  TouchableOpacity,
-  StyleSheet
-} from "react-native";
+import { Image, Text, View, StyleSheet } from "react-native";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 import React from "react";
+import {
+  Button,
+  TextInput,
+  Provider as PaperProvider
+} from "react-native-paper";
 
 const SIGN_IN = gql`
   mutation signIn($email: AUTH_PROVIDER_EMAIL) {
@@ -45,43 +43,23 @@ class Login extends React.Component {
 
   render() {
     return (
-      <View>
-        <View style={styles.input}>
-          <TextInput
-            style={{
-              borderWidth: 1,
-              borderBottomColor: "grey",
-              fontSize: 20,
-              margin: 10,
-              width: 200
-            }}
-            value={this.state.email}
-            onChangeText={text => this.setState({ email: text })}
-            placeholder="email"
-          />
-          <TextInput
-            secureTextEntry
-            style={{
-              borderWidth: 1,
-              borderBottomColor: "grey",
-              fontSize: 20,
-              margin: 10,
-              width: 200
-            }}
-            value={this.state.password}
-            onChangeText={text => this.setState({ password: text })}
-            placeholder="password"
-          />
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              this.signinUser();
-            }}
-          >
-            <Text style={{ color: "white", textAlign: "center" }}>Sign in</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      <PaperProvider>
+        <TextInput
+          value={this.state.email}
+          onChangeText={text => this.setState({ email: text })}
+          placeholder="email"
+        />
+        <TextInput
+          secureTextEntry
+          value={this.state.password}
+          onChangeText={text => this.setState({ password: text })}
+          placeholder="password"
+        />
+
+        <Button color="#85144b" raised onPress={() => this.signinUser()}>
+          Sign in
+        </Button>
+      </PaperProvider>
     );
   }
 }

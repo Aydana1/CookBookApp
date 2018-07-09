@@ -2,6 +2,7 @@ import { ApolloProvider } from "react-apollo";
 import ApolloClient from "apollo-boost";
 import { createStackNavigator } from "react-navigation";
 import React from "react";
+import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 
 import CreateRecipeForm from "./components/CreateRecipeForm";
 import RecipeList from "./components/RecipeList";
@@ -13,12 +14,24 @@ const client = new ApolloClient({
   uri: "https://api.graph.cool/simple/v1/cjj6o6s7m3p8e0110wb4bzbfk"
 });
 
+const theme = {
+  ...DefaultTheme,
+  roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: "#3498db",
+    accent: "#f1c40f"
+  }
+};
+
 class App extends React.Component {
   render() {
     return (
-      <ApolloProvider client={client}>
-        <RootStack />
-      </ApolloProvider>
+      <PaperProvider theme={theme}>
+        <ApolloProvider client={client}>
+          <RootStack />
+        </ApolloProvider>
+      </PaperProvider>
     );
   }
 }
@@ -32,7 +45,7 @@ const RootStack = createStackNavigator(
     Login: Login
   },
   {
-    initialRouteName: "Register"
+    initialRouteName: "CreateRecipe"
   }
 );
 

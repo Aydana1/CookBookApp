@@ -1,6 +1,9 @@
 import { ApolloProvider } from "react-apollo";
 import ApolloClient from "apollo-boost";
-import { createStackNavigator } from "react-navigation";
+import {
+  createStackNavigator,
+  createBottomTabNavigator
+} from "react-navigation";
 import React from "react";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 
@@ -9,6 +12,9 @@ import RecipeList from "./components/RecipeList";
 import DetailsScreen from "./components/DetailsScreen";
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
+import FavRecipes from "./components/FavRecipes";
+import Profile from "./components/Profile";
+import Home from "./components/Home";
 
 const client = new ApolloClient({
   uri: "https://api.graph.cool/simple/v1/cjj6o6s7m3p8e0110wb4bzbfk"
@@ -42,11 +48,19 @@ const RootStack = createStackNavigator(
     Detailed: DetailsScreen,
     CreateRecipe: CreateRecipeForm,
     Register: SignUp,
-    Login: Login
+    Login: Login,
+    Profile: Profile,
+    FavRecipes: FavRecipes,
+    Home: Home
   },
   {
-    initialRouteName: "Register"
+    initialRouteName: "Login"
   }
 );
+
+// const TabBar = createBottomTabNavigator({
+//   FavRecipes: FavRecipes,
+//   ShowRecipe: RecipeList
+// });
 
 export default App;

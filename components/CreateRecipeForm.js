@@ -112,21 +112,22 @@ class CreateRecipeForm extends React.Component {
   };
 
   render() {
+    const { title, description, ingredient } = this.state;
     return (
       <PaperProvider>
         <ScrollView>
           <TextInput
-            value={this.state.title}
+            value={title}
             onChangeText={text => this.setState({ title: text })}
             placeholder="Title"
           />
           <TextInput
-            value={this.state.description}
+            value={description}
             onChangeText={text => this.setState({ description: text })}
             placeholder="Description"
           />
           <TextInput
-            value={this.state.ingredient}
+            value={ingredient}
             onChangeText={text => {
               this.setState({ ingredient: text });
             }}
@@ -195,7 +196,6 @@ class CreateRecipeForm extends React.Component {
                 backgroundColor: "#dddddd"
               }}
               source={{ uri: this.state.imageUrl }}
-              placeholder={require("../images/food.jpg")}
             />
           </View>
 

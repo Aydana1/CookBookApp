@@ -2,6 +2,7 @@ import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import React from "react";
+// import { createBottomTabNavigator } from "react-navigation";
 import {
   Button,
   Card,
@@ -10,9 +11,6 @@ import {
   CardCover,
   Title,
   Paragraph,
-  TextInput,
-  TouchableRipple,
-  DefaultTheme,
   Provider as PaperProvider
 } from "react-native-paper";
 import { ScrollView } from "../node_modules/react-native-gesture-handler";
@@ -23,9 +21,7 @@ const GET_ALL_RECIPES = gql`
       id
       title
       description
-      instructions
       imageUrl
-      ingredients
     }
   }
 `;
@@ -42,6 +38,19 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: "#39CCCC",
     marginLeft: 20
+  },
+  button1: {
+    justifyContent: "space-around",
+    alignItems: "center",
+    marginRight: 20,
+    marginBottom: 40
+  },
+  button2: {
+    justifyContent: "space-around",
+    alignItems: "center",
+    marginRight: 20,
+    marginTop: 20,
+    marginBottom: 40
   }
 });
 
@@ -59,7 +68,8 @@ class RecipeList extends React.Component {
           <Button
             onPress={() => {
               this.props.navigation.navigate("Detailed", {
-                recipeID: recipe.id
+                recipeID: recipe.id,
+                user: this.props.navigation.state.params.user
               });
             }}
           >
@@ -85,6 +95,7 @@ class RecipeList extends React.Component {
                 <FlatList
                   keyExtractor={item => item.id}
                   data={data ? data.allRecipes : []}
+                  //pull to refresh
                   renderItem={this.renderItem}
                 />
               );
@@ -98,6 +109,31 @@ class RecipeList extends React.Component {
             onPress={() => this.props.navigation.navigate("CreateRecipe")}
           >
             +
+          </Button>
+          <Button
+            style={styles.button1}
+            color="white"
+            raised
+            onPress={() =>
+              this.props.navigation.navigate("FavRecipes", {
+                user: this.props.navigation.state.params.user
+              })
+            }
+          >
+            My Favourite Recipes
+          </Button>
+
+          <Button
+            style={styles.button2}
+            color="white"
+            raised
+            onPress={() =>
+              this.props.navigation.navigate("Profile", {
+                user: this.props.navigation.state.params.user
+              })
+            }
+          >
+            My Profile
           </Button>
         </ScrollView>
       </PaperProvider>

@@ -16,6 +16,13 @@ const SIGN_IN = gql`
         id
         email
         password
+        favRecipes {
+          id
+          title
+          description
+          ingredients
+          instructions
+        }
       }
     }
   }
@@ -23,22 +30,27 @@ const SIGN_IN = gql`
 
 class Login extends React.Component {
   state = {
-    id: "",
     email: "",
     password: ""
   };
 
   signinUser = async () => {
     const { email, password } = this.state;
-    await this.props.SIGN_IN({
-      variables: {
-        email: {
-          email,
-          password
+
+    try {
+      const data = await this.props.SIGN_IN({
+        variables: {
+          email: {
+            email,
+            password
+          }
         }
-      }
-    });
-    this.props.navigation.navigate("ShowRecipe");
+      });
+      const user = data.data.signinUser.user;
+      this.props.navigation.navigate("Home", { user });
+    } catch (e) {
+      console.log("ERROR", e);
+    }
   };
 
   render() {

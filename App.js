@@ -1,9 +1,6 @@
 import { ApolloProvider } from "react-apollo";
 import ApolloClient from "apollo-boost";
-import {
-  createStackNavigator,
-  createBottomTabNavigator
-} from "react-navigation";
+import { createStackNavigator } from "react-navigation";
 import React from "react";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 
@@ -57,10 +54,5 @@ const RootStack = createStackNavigator(
     initialRouteName: "Login"
   }
 );
-
-// const TabBar = createBottomTabNavigator({
-//   FavRecipes: FavRecipes,
-//   ShowRecipe: RecipeList
-// });
 
 export default App;
